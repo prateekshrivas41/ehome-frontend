@@ -1,0 +1,160 @@
+/* .roofing-stepform-outer {
+  max-width: 420px;
+  margin: 32px auto;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.11);
+  padding: 0 0 80px 0;
+  position: relative;
+}
+
+.roofing-stepform-progress {
+  position: relative;
+  height: 8px;
+  background: #e5e5e5;
+  border-radius: 8px 8px 0 0;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+.roofing-stepform-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #25aa3d 60%, #8be78b 100%);
+  transition: width 0.4s;
+}
+.roofing-stepform-progress-label {
+  position: absolute;
+  right: 12px;
+  top: -22px;
+  font-size: 0.95rem;
+  color: #25aa3d;
+  font-weight: 600;
+}
+
+.roofing-stepform-card {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.05);
+  padding: 32px 24px 24px 24px;
+  margin: 0 16px;
+  text-align: center;
+  animation: fadeIn 0.4s;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px);}
+  to { opacity: 1; transform: translateY(0);}
+}
+
+.roofing-stepform-title {
+  font-size: 1.35rem;
+  font-weight: 600;
+  margin-bottom: 24px;
+  color: #222;
+}
+
+.roofing-stepform-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.roofing-stepform-option-btn {
+  background: #f6f6f6;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 18px 26px;
+  font-size: 1.08rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s;
+  min-width: 120px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+}
+.roofing-stepform-option-btn.selected,
+.roofing-stepform-option-btn:hover {
+  background: #eaffea;
+  border-color: #25aa3d;
+  color: #25aa3d;
+}
+
+.roofing-stepform-option-icon {
+  font-size: 1.5rem;
+}
+
+.roofing-stepform-input {
+  width: 100%;
+  padding: 14px 12px;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1.08rem;
+  margin-bottom: 10px;
+  outline: none;
+  transition: border 0.2s;
+}
+.roofing-stepform-input:focus {
+  border-color: #25aa3d;
+}
+
+.roofing-stepform-error {
+  color: #e53935;
+  font-size: 1rem;
+  margin-top: 10px;
+}
+
+.roofing-stepform-nav {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100vw;
+  background: #fff;
+  box-shadow: 0 -2px 12px rgba(0,0,0,0.06);
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  padding: 16px 0 20px 0;
+  z-index: 100;
+}
+.roofing-stepform-nav-btn {
+  font-size: 1.1rem;
+  padding: 10px 36px;
+  border-radius: 10px;
+  border: none;
+  background: #e0e0e0;
+  color: #444;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.roofing-stepform-nav-btn.primary {
+  background: #25aa3d;
+  color: #fff;
+}
+.roofing-stepform-nav-btn:disabled {
+  background: #f0f0f0;
+  color: #aaa;
+  cursor: not-allowed;
+}
+
+@media (max-width: 600px) {
+  .roofing-stepform-outer {
+    max-width: 98vw;
+    padding-bottom: 80px;
+  }
+  .roofing-stepform-card {
+    padding: 18px 4vw 16px 4vw;
+    margin: 0 2vw;
+  }
+  .roofing-stepform-nav {
+    padding: 12px 0 14px 0;
+    gap: 10px;
+  }
+  .roofing-stepform-option-btn {
+    min-width: 90px;
+    padding: 12px 12px;
+    font-size: 0.99rem;
+  }
+} */

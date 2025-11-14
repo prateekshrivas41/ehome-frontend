@@ -1,0 +1,29 @@
+.bath-step1-container img,
+.bath-step1-selected-container img {
+    margin: auto;
+    margin-top: 1rem;
+}
+
+.gutter-step2-selected-container,
+.gutter-step2-container {
+    width: 42%;
+    padding: 0.5rem 1rem;
+    border: 2px solid #cccc;
+    border-radius: 10px;
+    transition: border 0.3s ease;
+    cursor: pointer;
+}
+.gutter-step2-selected-container {
+    border: 2px solid #25aa3d;
+}
+@media (max-width: 500px) {
+    .gutter-step2-container,
+    .gutter-step2-selected-container {
+        width: 40%;
+        min-height: 109px;
+    }
+    .gutter-error-div {
+        margin-top: 3rem;
+        text-align: center;
+    }
+}

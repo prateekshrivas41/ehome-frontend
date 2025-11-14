@@ -1,0 +1,26 @@
+.step-logo-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2.5rem;
+}
+
+.step-logo-image {
+  object-fit: contain;
+}
+
+@media (max-width: 768px) {
+  .step-logo-container {
+    /* flex-direction: column; */
+  }
+}
+
+@media (max-width: 468px) {
+  .step-logo-container {
+    /* flex-direction: column; */
+  }
+
+  .step-logo-image {
+  }
+}

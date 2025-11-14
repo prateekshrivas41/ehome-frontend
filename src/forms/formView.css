@@ -1,0 +1,35 @@
+.form-conatiner {
+  height: 100dvh;
+  -webkit-background: url("../assets/homeWarrantyBg.png");
+  -moz-background: url("../assets/homeWarrantyBg.png");
+  -ms-background: url("../assets/homeWarrantyBg.png");
+  -o-background: url("../assets/homeWarrantyBg.png");
+  background: url("../assets/homeWarrantyBg.png");
+  -webkit-background-position: center;
+  -moz-background-position: center;
+  background-position: center;
+  -webkit-background-repeat: no-repeat;
+  -moz-background-repeat: no-repeat;
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  /* border: 2px solid red; */
+  width: 100%;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  -o-flex-direction: column;
+  flex-direction: column;
+  -webkit-justify-content: space-between;
+  -moz-justify-content: space-between;
+  justify-content: space-between;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  align-items: center;
+}

@@ -1,0 +1,666 @@
+.main-container {
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  width: -webkit-fill-available;
+  width: -moz-fill-available;
+  width: -ms-fill-available;
+  width: -o-fill-available;
+  width: fill-available;
+  height: -webkit-fill-available;
+  height: -moz-fill-available;
+  height: -ms-fill-available;
+  height: -o-fill-available;
+  height: fill-available;
+  padding: 0.5rem 0.5rem;
+}
+
+.form-value-container {
+  /* align-items: center; */
+  width: 90%;
+  /* height: 90vh; */
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 12px;
+  /* background-color: #ffffff; */
+  /* border: 1px solid #ffffff; */
+  background-color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-box-shadow: 1px 1px 10px 10px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 1px 1px 10px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 1px 1px 10px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  -o-flex-direction: column;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.nav-wrapper {
+  width: 100% !important;
+  display: flex;
+  justify-content: space-evenly;
+}
+.new-style-class {
+  filter: blur(30px);
+}
+
+.container {
+  overflow: hidden;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.steps-indicator {
+  margin-bottom: 10px;
+}
+
+.step {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  margin: 0 5px;
+  background-color: lightgray;
+  border-radius: 50%;
+  color: white;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+.bath-step1-selected-container,
+.bath-step1-container {
+  margin-top: 1rem;
+  padding: 1.5rem 2rem;
+  border: 2px solid #cccc;
+  border-radius: 10px;
+  transition: border 0.3s ease;
+  cursor: pointer;
+  max-width: 240px;
+  min-width: 200px;
+  width: auto;
+  height: 140px;
+}
+.step.active {
+  background-color: #007bff;
+}
+.bath-step1-selected-container{
+    border: 2px solid #25aa3d;
+}
+.transition-wrapper {
+  /* position: relative;
+    width: 100%;
+    height: 80%; */
+}
+.step1-options-container {
+  margin: 20px;
+}
+.component {
+  position: absolute;
+  width: 100%;
+  height: -webkit-fill-available;
+  height: -moz-fill-available;
+  height: -ms-fill-available;
+  height: -o-fill-available;
+  height: fill-available;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  -webkit-transform: translateX(100%);
+  -moz-transform: translateX(100%);
+  -ms-transform: translateX(100%);
+  -o-transform: translateX(100%);
+  transform: translateX(100%);
+  -webkit-transition: -webkit-transform 0.8s ease-in-out,
+    opacity 0.3s ease-in-out;
+  -moz-transition: -moz-transform 0.8s ease-in-out, opacity 0.3s ease-in-out;
+  -o-transition: -o-transform 0.8s ease-in-out, opacity 0.3s ease-in-out;
+  transition: transform 0.8s ease-in-out, opacity 0.3s ease-in-out;
+  text-align: center;
+}
+
+/* Slide-in from the right */
+.slide-in {
+  transform: translateX(0);
+  opacity: 1;
+  z-index: 1;
+  margin-top: 16px;
+}
+
+/* Slide-out to the left */
+.slide-out-left {
+  transform: translateX(-100%);
+  opacity: 0;
+  z-index: 0;
+  margin-top: 16px;
+}
+
+/* Slide-out to the right */
+.slide-out-right {
+  transform: translateX(100%);
+  opacity: 0;
+  z-index: 0;
+  margin-top: 16px;
+}
+
+.autoComplete-style {
+  /* width: 87%;
+    height: 40px; */
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding-left: 10px;
+  background-color: whitesmoke;
+  /* margin-top: 20px; */
+}
+
+.step4-options-container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 100%;
+  align-self: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.step8-options-container {
+  display: flex;
+  flex-direction: row;
+  /* width: 70%; */
+  align-self: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.autoComplete-text-style {
+  font-size: 10px;
+  align-self: center;
+  text-align: left;
+  /* width: 70%; */
+}
+
+.step5-options-container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 100%;
+  align-self: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.text-underline {
+  text-decoration: underline;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.resend-otp-text {
+  cursor: pointer;
+  /* margin-top: 20px; */
+  width: 16%;
+  align-self: center;
+  color: #007bff;
+}
+
+.resend-text {
+  user-select: none;
+  /* margin-top: 20px; */
+  width: 50%;
+  align-self: center;
+}
+
+/* Ensure the form-value-container is relative so the overlay can be positioned inside it */
+.form-value-container {
+  /* position: relative;  */
+  /* Position relative for absolute positioning of the loader */
+}
+
+/* Loader styling: Make the loader center both horizontally and vertically */
+.overlay-loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.6);
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding-box;
+  background-clip: padding-box;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+}
+
+/* Style for the CircularProgress (loader) */
+.overlay-loader .MuiCircularProgress-root {
+  color: #1976d2; /* Loader color, you can change it */
+}
+
+/* Optional: Style for the transition wrapper and individual steps */
+.transition-wrapper {
+  position: relative;
+  z-index: 1;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+  height: 100%;
+  width: -webkit-fill-available;
+  width: -moz-fill-available;
+  width: -ms-fill-available;
+  width: -o-fill-available;
+  width: fill-available;
+}
+
+.component {
+  /* Your styling for individual form steps */
+}
+
+.css-i9fmh8-MuiBackdrop-root-MuiModal-backdrop {
+  position: relative !important;
+}
+
+.roffing-loading-modal {
+  background: white;
+  width: 50%;
+  height: 50%;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  position: absolute !important;
+  -webkit-transform: translate(50%, 50%);
+  -moz-transform: translate(50%, 50%);
+  -ms-transform: translate(50%, 50%);
+  -o-transform: translate(50%, 50%);
+  transform: translate(50%, 50%);
+  -webkit-box-shadow: rgba(0, 0, 0, 6.2) 2px 10px 58px 8px;
+  -moz-box-shadow: rgba(0, 0, 0, 6.2) 2px 10px 58px 8px;
+  box-shadow: rgba(0, 0, 0, 6.2) 2px 10px 58px 8px;
+
+  .MuiBackdrop-root.MuiModal-backdrop {
+    background: none;
+  }
+
+  .form-container {
+    filter: blur(10px);
+  }
+}
+
+.loader-div {
+  display: flex;
+  width: -webkit-fill-available;
+  justify-content: space-between;
+  align-items: center;
+  height: -webkit-fill-available;
+
+  .loader-text {
+    width: -webkit-fill-available;
+    display: grid;
+    gap: 1rem;
+    height: -webkit-fill-available;
+    padding: 2rem;
+  }
+  .loader-img {
+    width: -webkit-fill-available;
+    height: -webkit-fill-available;
+
+    .this-img {
+      border-radius: 20px;
+      width: 100%;
+      height: -webkit-fill-available;
+      /* filter: blur(5px); */
+    }
+    .this-img::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      /* background: linear-gradient(to left, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 1) 90%); */
+      pointer-events: none;
+    }
+  }
+  .loader-img::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 325px;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      to left,
+      rgba(255, 255, 255, 0) 20%,
+      rgba(255, 255, 255, 1) 90%
+    );
+    pointer-events: none;
+  }
+}
+
+.dot-lottie-roofing {
+  display: flex;
+  justify-content: center;
+}
+
+/* @media (max-width: 570px) {
+    .form-value-container {
+      width: -webkit-fill-available !important;
+    }
+    .dot-lottie-roofing {
+      margin-top: -2rem;
+    }
+  } */
+
+.contact {
+  display: flex;
+  gap: 2rem;
+}
+.captcha-heading {
+  margin-bottom: 0.5rem;
+}
+.verify-button {
+  border-radius: 10px;
+  padding: 0.5rem 1rem;
+}
+@media (max-width: 768px) {
+  .contact {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .form-value-container {
+    gap: 1rem;
+
+    /* margin-top: 4rem; */
+    /* display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center; */
+    width: 100%;
+    /* height: 84% !important; */
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    /* background-color: #ffffff; */
+    /* border: 1px solid #ffffff; */
+    box-shadow: 1px 1px 10px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* .step1-heading {
+      font-size: 15px !important;
+      font-weight: 400;
+      padding-left: 10px;
+      padding-right: 10px;
+      margin-top: 20px;
+    } */
+
+  .step1-options-container {
+    /* display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px !important; */
+
+    img {
+      width: 30px;
+      height: 30px;
+    }
+  }
+
+  /* .step1-container {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-evenly;
+      width: 90%;
+      height: 60px !important;
+      border: 2px solid #cccc;
+      margin: 10px;
+      border-radius: 10px;
+      margin-top: 20px;
+      transition: border 0.3s ease;
+      cursor: pointer;
+      padding-left: 10px;
+    }
+  
+    .step1-selected-container {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      width: 90%;
+      height: 60px !important;
+      padding-left: 10px;
+      border: 2px solid #25aa3d;
+      margin: 10px;
+      border-radius: 10px;
+      margin-top: 20px;
+      transition: border 0.3s ease;
+      cursor: pointer;
+    } */
+
+  .bath-step1-container:hover {
+    border: 2px solid #25aa3d !important;
+  }
+
+  /* .step1-options-text {
+      color: black;
+      font-family: "Poppins";
+      font-size: 16px;
+      font-weight: 300;
+      text-align: center;
+      width: 80%;
+      line-height: 1.2;
+    } */
+
+  .step8-options-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .resend-otp-text {
+    cursor: pointer;
+    /* margin-top: 20px; */
+    width: 30%;
+    align-self: center;
+    color: #007bff;
+  }
+  .error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+  }
+  .phone-description-text {
+    width: -webkit-fill-available !important;
+    font-size: 6px;
+  }
+
+  .step2-selected-container1 {
+    border: 2px solid #25aa3d !important;
+  }
+  .step2-container1:hover {
+    border: 2px solid #25aa3d;
+  }
+
+  .material-type-container {
+    gap: 10px !important;
+    margin-top: 2rem;
+  }
+
+  .material-type-image {
+    width: 50px !important;
+    aspect-ratio: 1 / 2;
+  }
+
+  .sticky-form-nav-wrapper {
+    width: 100% !important;
+  }
+}
+
+/* @media (max-width: 570px) {
+    .form-value-container {
+      width: -webkit-fill-available !important;
+    }
+  } */
+
+@media (max-width: 490px) {
+  .text-container {
+    font-size: 8px !important;
+  }
+  .error_div {
+    font-size: 13 !important;
+  }
+
+  .material-type-image {
+  }
+}
+
+/* @media (min-width: 768px) and (max-width: 1023px) {
+      .phone-description-text {
+          width: 90vh !important;
+          font-size: 11px !important;
+          margin-top: 3px !important;
+      }
+  } */
+
+/* Media query for screens larger than 1024px */
+@media (min-width: 1024px) {
+  .phone-description-text {
+    width: 80dvh !important;
+    font-size: 11px !important;
+    margin-top: 3px !important;
+  }
+}
+
+/* Mobile-specific styles for Step 1 */
+@media (max-width: 768px) {
+  .bath-step1-heading {
+    font-size: 18px !important;
+    line-height: 1.3;
+
+    font-weight: 600 !important;
+  }
+
+  .mobile-only-break {
+    display: inline;
+  }
+
+  .bath-step1-container,
+  .bath-step1-selected-container {
+    /* max-width: 160px;
+      height: 68px !important; */
+    /* padding: .5rem .75rem !important; */
+    width: auto !important;
+    height: auto !important;
+    padding: 0!important;
+    display: block !important;
+  }
+  .bath-step1-selected-container {
+    border: 2px solid #25aa3d;
+  }
+  .step1-options-container {
+    margin: 0;
+    gap:0 !important;
+  }
+
+  .bath-step1-options-text,
+  .bath-step1-selected-options-text {
+    font-size: 14px !important;
+    text-align: center !important;
+  }
+
+  /* .option-icon {
+      width: 36px !important;
+      height: 36px !important;
+    } */
+
+  .step1-options-container {
+    gap: 10px;
+    justify-content: center;
+    margin-top: 0 !important;
+    padding: 0 !important;
+  }
+
+  .bath-container{
+  
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 1rem;
+  
+  }
+}
+
+/* Hide line break on desktop */
+@media (min-width: 769px) {
+  .mobile-only-break {
+    display: none;
+  }
+  .roofing-main-container {
+    padding: 0.5rem 2rem 2rem;
+  }
+}
+
+@media (max-height: 700px) {
+  .roofing-main-container {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+  .form-value-container {
+    gap: 0.5rem;
+    min-height: 550px; /* Adjust as needed */
+  }
+  .transition-wrapper {
+    flex-grow: 1;
+    height: auto;
+  }
+  .component {
+    position: relative;
+    height: auto;
+  }
+}
+@media (max-width: 500px) {
+  .component {
+    height: 85% !important;
+  }
+    
+}

@@ -1,0 +1,175 @@
+@import "tailwindcss";
+
+:root {
+  font-family: "Poppins", sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+body,html {
+  margin: 0;
+  padding: 0 !important;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Common step and form utility classes */
+/* .step1-heading {
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.step1-options-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  gap: 12px;
+  padding: 15px 0;
+}
+
+.step1-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 125px;
+  height: 125px;
+  border: 2px solid #cccc;
+  margin: 10px;
+  border-radius: 10px;
+  margin-top: 20px;
+  transition: border 0.3s ease;
+  cursor: pointer;
+}
+
+.step1-container:hover {
+  border: 2px solid #25aa3d;
+}
+
+.step1-selected-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 125px;
+  height: 125px;
+  border: 2px solid #25aa3d;
+  margin: 10px;
+  border-radius: 10px;
+  margin-top: 20px;
+  transition: border 0.3s ease;
+  cursor: pointer;
+}
+
+.step1-options-text {
+  color: black;
+  font-family: "Poppins";
+  font-size: 14px;
+  font-weight: 300;
+  text-align: center;
+  width: 80%;
+  line-height: 1.2;
+  text-transform: capitalize;
+}
+
+.step2-options-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  align-self: center;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.step2-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  width: 210px;
+  height: 40px;
+  border: 2px solid #cccc;
+  border-radius: 10px;
+  transition: border 0.3s ease;
+  cursor: pointer;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+.step2-container:hover {
+  border: 2px solid #25aa3d;
+}
+
+.step2-selected-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  width: 210px;
+  height: 40px;
+  border: 2px solid #25aa3d;
+  border-radius: 10px;
+  margin-top: 20px;
+  transition: border 0.3s ease;
+  cursor: pointer;
+  margin-left: 20px;
+}
+
+.phone-description-text {
+  font-size: 11px;
+  font-weight: 400;
+  width: 75vw;
+  font-style: italic;
+  text-align: left;
+  margin-top: 10px;
+}
+
+.resend-otp-text {
+  cursor: pointer;
+  margin-top: 20px;
+  width: 16%;
+  align-self: center;
+  color: #007bff;
+} */
+
+/* @media (max-width: 600px) {
+  .step1-heading {
+    font-size: 18px;
+  }
+  .step1-container, .step1-selected-container {
+    width: 90vw;
+    max-width: 300px;
+    height: 80px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 8px auto;
+  }
+  .step1-options-container {
+    flex-direction: column;
+    gap: 8px;
+    padding: 10px 0;
+  }
+  .step1-options-text {
+    font-size: 13px;
+  }
+  .step2-container, .step2-selected-container {
+    width: 90vw;
+    max-width: 300px;
+    height: 40px;
+    margin-left: 0;
+  }
+  .phone-description-text {
+    font-size: 10px;
+    width: 95vw;
+    padding: 0 8px;
+  }
+  .resend-otp-text {
+    width: 40vw;
+    font-size: 13px;
+  }
+} */

@@ -1,0 +1,43 @@
+.form-next-prev-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: -webkit-fill-available;
+    margin-bottom: 15px;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+/* .sticky-form-nav {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100vw;
+  z-index: 9999;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  padding: 12px 0 12px 0;
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.08);
+  transition: bottom 0.2s;
+}
+
+.sticky-form-nav.keyboard-visible {
+  bottom: 0 !important;
+} */
+
+
+@media (max-width: 500px) {
+    .form-next-prev-buttons {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: center;
+        width: 100%;
+    }
+    #main-btn1{
+        width: 25% !important;
+    }
+}
