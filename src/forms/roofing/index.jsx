@@ -222,6 +222,29 @@ const Step4 = ({
   newState,
   setNewState,
 }) => {
+   const getCityAndState = (place) => {
+    if (!place?.address_components) return { city: "", state: "" };
+
+    let city = "";
+    let state = "";
+
+    place.address_components.forEach((component) => {
+      if (component.types.includes("locality")) {
+        city = component.long_name;
+      } else if (
+        !city &&
+        component.types.includes("administrative_area_level_3")
+      ) {
+        // fallback for when 'locality' is missing
+        city = component.long_name;
+      } else if (component.types.includes("administrative_area_level_1")) {
+        state = component.short_name;
+      }
+    });
+
+    return { city, state };
+  };
+
   return (
     <div>
       <div className="step1-heading">Where will this project take place?</div>
@@ -232,6 +255,9 @@ const Step4 = ({
           defaultValue={stateCity}
           onPlaceSelected={(place) => {
             setStateCity(place?.formatted_address);
+            const { city, state } = getCityAndState(place);
+            setNewCity(city);
+            setNewState(state);
           }}
           // onChange={(getdata) => {}}
           options={{
@@ -893,9 +919,9 @@ const steps = [
       setIsSubmitting(true);
 
       let zipcode = getLocalData("zipcode");
-      let newState = stateCity.split(",");
-      const location = newState[2].split();
-      const splitLocation = location[0].split(" ");
+      // let newState = stateCity.split(",");
+      // const location = newState[2].split();
+      // const splitLocation = location[0].split(" ");
 
       let body = {
         zip: zipcode,
@@ -910,8 +936,8 @@ const steps = [
         phoneNumber: phone,
         trustedFormUrl: certUrlField,
         jornayaLeadId: jornayaId,
-        state: state ? state : splitLocation[1],
-        city: city ? city : newState[1],
+        state: newState,
+        city: newCity,
         source: source,
         userAgent: normalizeUserAgent(window?.navigator?.userAgent),
         sessionTime: "30",
