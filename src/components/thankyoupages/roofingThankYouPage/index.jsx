@@ -155,7 +155,12 @@ export default function ThankYouPage() {
 
   const handleIframeLoad = () => setIframeLoading(false);
 
-
+  useEffect(() => {
+    // console.log("thankyoupage", window.dataLayer)
+    if (window.gtag) {
+      window.gtag('event', 'conversion', {'send_to': 'AW-17650984124/FmKvCNa7g64bELzJ0uBB'});
+    }
+  }, []);
   const pixelUrl = `https://seize-the-ads.vnative.net/pixel?adid=63a0327fc3d7091b7266fa23&revenue=${
     price === 0 ? 0.10 : Number(price)
   }`;
