@@ -186,24 +186,20 @@ export default function Windows() {
     country: "",
   });
   const [source, setSource] = useState(10);
+  const [clickId, setClickId] = useState(0);
   const [ip, setIP] = useState("");
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const url = window.location.href;
+  if (typeof window !== "undefined") {
+    const params = new URLSearchParams(window.location.search);
 
-      const hash = window.location.hash;
+    const publisherId = params.get("publisher_id");
+    const clickId = params.get("click_id");
 
-      const hashParams = url.split("?")[1]; // This gets everything after the '?'
-
-      if (hashParams) {
-        const urlParams = new URLSearchParams(hashParams);
-
-        const publisherId = urlParams.get("publisher_id");
-        setSource(publisherId);
-      }
-    }
-
+    if (publisherId) setSource(publisherId);
+    if (clickId) setClickId(clickId);
+  }
+    
     getMyLocation(function (callback) {
       setLocation(callback);
       let { city, state } = callback;
@@ -258,7 +254,7 @@ export default function Windows() {
           style={{ width: "100%", height: "100%" }}
         >
           <>
-            <WarrantyForm source={source} certUrlField={certUrlField} jornayaId={jornayaId} ip={ip} />
+            <WarrantyForm source={{publisherId: source, clickId}} certUrlField={certUrlField} jornayaId={jornayaId} ip={ip} />
           </>
         </Modal>
       }
