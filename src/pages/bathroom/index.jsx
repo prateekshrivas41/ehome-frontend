@@ -172,6 +172,7 @@ export default function Bathroom() {
   const handleClose = () => setOpen(false);
   const redirectUrl = "/bathroom";
   const [source, setSource] = useState(10);
+  const [clickId, setClickId] = useState(0);
   const [ip, setIP] = useState("");
 
   const certUrlField = document.querySelector(
@@ -179,23 +180,15 @@ export default function Bathroom() {
   )?.value;
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const url = window.location.href;
+  if (typeof window !== "undefined") {
+    const params = new URLSearchParams(window.location.search);
 
-      // Get everything after the # symbol (hash)
-      const hash = window.location.hash;
+    const publisherId = params.get("publisher_id");
+    const clickId = params.get("click_id");
 
-      // Get the part after the # (this could be like '/roofing?...')
-      const hashParams = url.split("?")[1]; // This gets everything after the '?'
-
-      if (hashParams) {
-        const urlParams = new URLSearchParams(hashParams);
-
-        // Get the publisher_id parameter
-        const publisherId = urlParams.get("publisher_id");
-        setSource(publisherId); // Update source with publisher_id
-      }
-    }
+    if (publisherId) setSource(publisherId);
+    if (clickId) setClickId(clickId);
+  }
 
     getMyLocation(function (callback) {
       setLocation(callback);
@@ -252,7 +245,7 @@ export default function Bathroom() {
         >
           <>
             <WarrantyForm
-              source={source}
+              source={{publisherId: source, clickId: clickId}} 
               certUrlField={certUrlField}
               jornayaId={jornayaId}
               ip={ip}

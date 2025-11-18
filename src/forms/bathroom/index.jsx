@@ -3,9 +3,9 @@ import React, { useState, useEffect, useRef } from "react";
 import MainFormView from "../index";
 import StepCounter from "../../components/stepsCounter";
 import PrevNextButtom from "../../components/prevNext";
-import { step1data } from "./stepData";
+import { step1data, step2data, step4data } from "./stepData";
 import FormTabs from "../../components/FromTabs/FormTabs";
-import { TextField } from "@mui/material";
+import { TextField, Select, MenuItem, FormControl, InputLabel } from "@mui/material";
 import Autocomplete from "react-google-autocomplete";
 import StepLogo from "../../components/stepLogo";
 import Checkbox from "@mui/material/Checkbox";
@@ -18,11 +18,131 @@ import { CircularProgress } from "@mui/material";
 import { useValidation } from "../../context/validationContext";
 import useRecaptcha from "../../hooks/useRecaptcha";
 
-const Step1 = ({ selectBathroomPurpose, setselectBathroomPurpose, autoNext }) => {
+const ownerData = [
+    { id: 1, text: 'Yes', value: true },
+    { id: 2, text: 'No', value: false }
+];
+
+const Step1 = ({
+  stateCity,
+  setStateCity,
+  ownerToBathroomChanges,
+  setOwnerToBathroomChanges,
+  setNewCity,
+  setNewState,
+}) => {
+  const getCityAndState = (place) => {
+    if (!place?.address_components) return { city: "", state: "" };
+
+    let city = "";
+    let state = "";
+
+    place.address_components.forEach((component) => {
+      if (component.types.includes("locality")) {
+        city = component.long_name;
+      } else if (
+        !city &&
+        component.types.includes("administrative_area_level_3")
+      ) {
+        // fallback for when 'locality' is missing
+        city = component.long_name;
+      } else if (component.types.includes("administrative_area_level_1")) {
+        state = component.short_name;
+      }
+    });
+
+    return { city, state };
+  };
+  return (
+    <div>
+      <div className="bath-step1-heading">Where will this project take place?</div>
+      <div className="step4-options-container">
+        <Autocomplete
+          key={stateCity} // Add key to reset component on selection
+          apiKey={"AIzaSyCpe8T2-LTEaHWGZlPa0-uxoVUcQTQzltY"}
+          defaultValue={stateCity}
+          onPlaceSelected={(place) => {
+            setStateCity(place?.formatted_address);
+            const { city, state } = getCityAndState(place);
+            setNewCity(city);
+            setNewState(state);
+          }}
+          options={{
+            types: ["geocode"],
+            componentRestrictions: { country: "us" },
+          }}
+          placeholder="Enter an address"
+          className="autoComplete-style"
+        />
+        <div style={{marginTop: '20px'}}>
+            <div>Are you the homeowner or authorized <br/>
+            to make property changes?</div>
+            <div className="step2-options-container">
+                {ownerData.map((item) => {
+                return (
+                    <div
+                    onClick={() => {
+                        setOwnerToBathroomChanges(item);
+                    }}
+                    key={item.id}
+                    className={
+                        ownerToBathroomChanges?.id === item.id
+                        ? "step2-selected-container"
+                        : "step2-container"
+                    }
+                    >
+                    <div
+                        className="step2-options-text"
+                    >
+                        {item.text}
+                    </div>
+                    </div>
+                );
+                })}
+            </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const Step2 = ({ bathroomType, setBathroomType, autoNext }) => {
+    return (
+      <div className="step2-4-container">
+        <div className="step1-heading">What type of bathroom would you like to remodel?</div>
+        <FormControl fullWidth margin="dense" variant="outlined">
+          <InputLabel id="bathroom-type-label">Select Bathroom Type</InputLabel>
+          <Select
+            labelId="bathroom-type-label"
+            id="bathroom-type-select"
+            value={bathroomType}
+            label="Select Bathroom Type"
+            onChange={(e) => {
+              setBathroomType(e.target.value);
+              if (autoNext) autoNext();
+            }}
+            sx={{
+                "& .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "#CCCCCC",
+                    borderWidth: "1px",
+                    borderRadius: 3,
+                },
+            }}
+          >
+            {step2data.map((item) => (
+              <MenuItem key={item.id} value={item.value}>{item.text}</MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </div>
+    );
+  };
+
+const Step3 = ({ selectBathroomPurpose, setselectBathroomPurpose, autoNext }) => {
   return (
     <div>
       <div className="step1-heading">
-        What are your bathroom renovation plans?
+        What would you like to do with your shower or bathtub?
       </div>
       <div className="step1-options-container bath-container">
         {step1data.map((item) => {
@@ -39,7 +159,7 @@ const Step1 = ({ selectBathroomPurpose, setselectBathroomPurpose, autoNext }) =>
                   : "bath-step1-container"
               }
             >
-              <img src={item.image} width={50} height={50} />
+              <img src={item.image} className="bathroom-imgs" />
               <div
                 className={
                   selectBathroomPurpose.id === item.id
@@ -57,59 +177,40 @@ const Step1 = ({ selectBathroomPurpose, setselectBathroomPurpose, autoNext }) =>
   );
 };
 
-const label = { inputProps: { "aria-label": "Checkbox demo" } };
-
-const Step2 = ({
-  stateCity,
-  setStateCity,
-  ownerToWindowChanges,
-  setOwnerToWindowChanges,
-  setNewCity,
-  newCity,
-  newState,
-  setNewState,
-}) => {
-  return (
-    <div>
-      <div className="bath-step1-heading">Where will this project take place?</div>
-      <div className="step4-options-container">
-        <Autocomplete
-          apiKey={"AIzaSyCpe8T2-LTEaHWGZlPa0-uxoVUcQTQzltY"}
-          onPlaceSelected={(place) => {
-            setStateCity(place?.formatted_address);
-          }}
-          options={{
-            types: ["geocode"],
-            componentRestrictions: { country: "us" },
-          }}
-          placeholder="Enter an address"
-          className="autoComplete-style"
-        />
-        <div style={{ display: "flex", flexDirection: "row" }}>
-          <Checkbox
-            {...label}
-            value={ownerToWindowChanges}
-            onChange={(val) => setOwnerToWindowChanges(val)}
-            defaultChecked
-            size="small"
-            sx={{
-              color: "transparent",
-              "&.Mui-checked": {
-                color: "#25aa3d",
-              },
+const Step4 = ({ otherUpgrades, setOtherUpgrades, autoNext }) => {
+    return (
+      <div className="step2-4-container">
+        <div className="step1-heading">Are there any other elements in your bathroom that you would like to upgrade?</div>
+        <FormControl fullWidth margin="dense" variant="outlined">
+          <InputLabel id="other-upgrades-label">Select Upgrades</InputLabel>
+          <Select
+            labelId="other-upgrades-label"
+            id="other-upgrades-select"
+            value={otherUpgrades}
+            label="Select Upgrades"
+            onChange={(e) => {
+              setOtherUpgrades(e.target.value);
+              if (autoNext) autoNext();
             }}
-          />
-          <div className="autoComplete-text-style">
-            I'm this property owner or entitled to make changes to it
-          </div>
-        </div>
+            sx={{
+                "& .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "#CCCCCC",
+                    borderWidth: "1px",
+                    borderRadius: 3,
+                },
+            }}
+          >
+            {step4data.map((item) => (
+              <MenuItem key={item.id} value={item.value}>{item.text}</MenuItem>
+            ))}
+          </Select>
+        </FormControl>
       </div>
-    </div>
-  );
-};
+    );
+  };
 
 const placeholderFontSize = 14;
-const Step3 = ({ userName, setUserName }) => {
+const Step5 = ({ userName, setUserName, email, setEmail }) => {
   return (
     <div>
       <div className="step1-heading">Mention your first and last name</div>
@@ -181,19 +282,10 @@ const Step3 = ({ userName, setUserName }) => {
             },
           }}
         />
-      </div>
-    </div>
-  );
-};
-
-const Step4 = ({ email, setEmail }) => {
-  return (
-    <div>
-      <div style={{ marginTop: 10 }} />
       <div className="step1-heading">
         Enter your email
       </div>
-      <div className="step2-options-container">
+      <div className="step2-options-container"   style={{ width: "100%" }}>
         <TextField
           placeholder="Email"
           value={email}
@@ -223,11 +315,12 @@ const Step4 = ({ email, setEmail }) => {
           }}
         />
       </div>
+      </div>
     </div>
   );
 };
 
-const Step5 = ({ phone, setPhone }) => {
+const Step6 = ({ phone, setPhone }) => {
   const [open, setOpen] = useState(false);
   return (
     <div>
@@ -305,7 +398,7 @@ const Step5 = ({ phone, setPhone }) => {
   );
 };
 
-const Step6 = ({ setOtp, otp }) => {
+const Step7 = ({ setOtp, otp }) => {
   const [valueOne, setValueOne] = useState("");
   const [valueTwo, setValueTwo] = useState("");
   const [valueThree, setValueThree] = useState("");
@@ -449,12 +542,14 @@ export default function WarrantyForm({ source, certUrlField, jornayaId, ip }) {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(0);
   const [selectBathroomPurpose, setselectBathroomPurpose] = useState("");
-  const [ownerToWindowChanges, setOwnerToWindowChanges] = useState(true);
+  const [ownerToBathroomChanges, setOwnerToBathroomChanges] = useState(true);
   const [stateCity, setStateCity] = useState("");
   const [userName, setUserName] = useState({ firstName: "", lastName: "" });
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [bathroomType, setBathroomType] = useState("");
   const [otp, setOtp] = useState("");
+  const [otherUpgrades, setOtherUpgrades] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [newCity, setNewCity] = useState("");
   const [newState, setNewState] = useState("");
@@ -470,71 +565,93 @@ export default function WarrantyForm({ source, certUrlField, jornayaId, ip }) {
     } = useRecaptcha();
     const autoNext = () => {
       setTimeout(() => {
-        if (currentStep < 3) setCurrentStep((prev) => prev + 1);
+        if (currentStep < 5) setCurrentStep((prev) => prev + 1);
       }, 100); 
     };
     const stepLabels = [
-      { label: "Purpose" },
       { label: "Property" },
+      { label: "Purpose" },
+      { label: "Upgrade" },
+      { label: "Extras" },
       { label: "Contact" },
       { label: "Verification" }
     ];
   const steps = [
     <div key="1">
       <Step1
-        selectBathroomPurpose={selectBathroomPurpose}
-        setselectBathroomPurpose={setselectBathroomPurpose}
-        autoNext={currentStep === 0 ? () => { setValidationError(""); autoNext(); } : undefined}
-      />  
-    </div>,
-
-    <div key="2">
-      <Step2
         stateCity={stateCity}
         setStateCity={setStateCity}
-        ownerToWindowChanges={ownerToWindowChanges}
+        ownerToBathroomChanges={ownerToBathroomChanges}
         setNewCity={setNewCity}
-        newCity={newCity}
         setNewState={setNewState}
-        newState={newState}
-        setOwnerToWindowChanges={setOwnerToWindowChanges}
+        setOwnerToBathroomChanges={setOwnerToBathroomChanges}
       />
     </div>,
+    <div key="2">
+        <Step2 bathroomType={bathroomType} setBathroomType={setBathroomType} autoNext={() => { setValidationError(""); autoNext(); }} />
+    </div>,
     <div key="3">
-      <Step3 userName={userName} setUserName={setUserName} />
-      <Step4 email={email} setEmail={setEmail} />
+      <Step3
+        selectBathroomPurpose={selectBathroomPurpose}
+        setselectBathroomPurpose={setselectBathroomPurpose}
+        autoNext={() => { setValidationError(""); autoNext(); }}
+      />  
     </div>,
     <div key="4">
-      <Step5 phone={phone} setPhone={setPhone} />
+        <Step4 otherUpgrades={otherUpgrades} setOtherUpgrades={setOtherUpgrades} autoNext={() => { setValidationError(""); autoNext(); }} />
     </div>,
-    // <div key="6">
-    //   <Step6 otp={otp} setOtp={setOtp} />
-    // </div>,
+    <div key="5">
+      <Step5 userName={userName} setUserName={setUserName} email={email} setEmail={setEmail} />
+    </div>,
+    <div key="6">
+      <Step6 phone={phone} setPhone={setPhone} />
+    </div>,
   ];
   const handleVerify = async () => {
     const verified = await verifyRecaptcha('submit');
     return verified;
   };
   const nextStep = async() => {
-      if (currentStep == 0) {
-        if (selectBathroomPurpose == "") {
-          setValidationError("Please select bathroom purpose!");
-        } else {
-          setValidationError(""); // Clear the error message
+      if (currentStep === 0) {
+        if (stateCity === "") {
+          setValidationError("Please enter state and city!");
+        } else if (ownerToBathroomChanges === "") {
+            setValidationError("Please answer the property owner question!");
+        }
+        else {
+          setValidationError("");
           setCurrentStep(currentStep + 1);
         }
         return
       }
-      if (currentStep == 1) {
-        if (stateCity === "") {
-          setValidationError("Please enter state and city!");
+      if (currentStep === 1) {
+        if (bathroomType === "") {
+          setValidationError("Please select a bathroom type!");
         } else {
-          setValidationError(""); // Clear the error message
+          setValidationError("");
           setCurrentStep(currentStep + 1);
         }
         return
       } 
-      if (currentStep == 2) {
+      if (currentStep === 2) {
+        if (selectBathroomPurpose === "") {
+          setValidationError("Please select bathroom purpose!");
+        } else {
+          setValidationError("");
+          setCurrentStep(currentStep + 1);
+        }
+        return
+      } 
+      if (currentStep === 3) {
+        if (otherUpgrades === "") {
+            setValidationError("Please select an upgrade option!");
+          } else {
+            setValidationError("");
+            setCurrentStep(currentStep + 1);
+          }
+          return
+      }
+      if (currentStep === 4) {
         if (!userName.firstName && !userName.lastName) {
           setValidationError("Please enter both first name and last name!");
         } else if (!userName.firstName) {
@@ -551,7 +668,7 @@ export default function WarrantyForm({ source, certUrlField, jornayaId, ip }) {
         }
         return;
       } 
-      if (currentStep === 3) {
+      if (currentStep === 5) {
         if (phone == "") {
           setValidationError("Please enter a phone number!");
           return;
@@ -575,36 +692,40 @@ export default function WarrantyForm({ source, certUrlField, jornayaId, ip }) {
           setIsSubmitting(true);
 
       let zipcode = getLocalData("zipcode");
-      let newState = stateCity.split(",");
-      const location = newState[2].split();
-      const splitLocation = location[0].split(" ");
+      // let newState = stateCity.split(",");
+      // const location = newState[2].split();
+      // const splitLocation = location[0].split(" ");
 
       let body = {
         email: email,
         phoneNumber: phone,
+        homeOwner: ownerToBathroomChanges.text,
         zip: zipcode,
-        state: state ? state : splitLocation[1],
-        city: city ? city : newState[1],
+        state: newState,
+        city: newCity,
         address: stateCity,
         firstName: userName.firstName,
         lastName: userName.lastName,
         project: selectBathroomPurpose?.projectType,
-        source: source,
+        bathroomType: bathroomType,
+        upgrades: otherUpgrades,
+        source: source?.publisherId,
+        clickid: source?.clickId,
         trustedFormUrl: certUrlField,
         trustedFormId: certUrlField?.split("/")[3],
         jornayaLeadId: jornayaId,
         userAgent: normalizeUserAgent(window?.navigator?.userAgent),
         ip: ip,
       };
-
-      postData("bathroom", body)
-        .then((res) => {
-          setIsSubmitting(false);
-          if (res.success) {
-            navigate("/bathroom-thankyou-page");
-          }
-        })
-        .catch((error) => console.log("bathroom Post API Error", error));
+      console.log("Bathroom Form Body:", body);
+      // postData("bathroom", body)
+      //   .then((res) => {
+      //     setIsSubmitting(false);
+      //     if (res.success) {
+      //       navigate("/bathroom-thankyou-page");
+      //     }
+      //   })
+      //   .catch((error) => console.log("bathroom Post API Error", error));
     }
   };
   const prevStep = () => {
@@ -640,7 +761,7 @@ export default function WarrantyForm({ source, certUrlField, jornayaId, ip }) {
         )}
         <StepCounter
           count={currentStep}
-          step={25} //13.4 for otp loading view
+          step={16.6}
         />
         <div className="transition-wrapper">
           {steps.map((step, index) => (

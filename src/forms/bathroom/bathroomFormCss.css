@@ -231,7 +231,10 @@
   /* position: relative;  */
   /* Position relative for absolute positioning of the loader */
 }
-
+.bathroom-imgs{
+  width: 30px;
+  height: 30px;
+}
 /* Loader styling: Make the loader center both horizontally and vertically */
 .overlay-loader {
   position: absolute;
@@ -570,20 +573,29 @@
     margin-top: 3px !important;
   }
 }
-
+.bath-step1-heading{
+  margin-bottom: 0.5rem !important;
+}
 /* Mobile-specific styles for Step 1 */
 @media (max-width: 768px) {
   .bath-step1-heading {
     font-size: 18px !important;
     line-height: 1.3;
-
-    font-weight: 600 !important;
+    font-weight: 400 !important;
   }
 
   .mobile-only-break {
     display: inline;
   }
 
+  .step2-4-container {
+    width: 90%;
+    margin: 0 auto;
+  }
+  .bathroom-imgs{
+    width: 20px !important;
+    height: 20px !important;
+  }
   .bath-step1-container,
   .bath-step1-selected-container {
     /* max-width: 160px;
@@ -663,4 +675,50 @@
     height: 85% !important;
   }
     
+}
+.step2-options-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.step2-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 120px;
+    height: 40px;
+    border: 2px solid #cccc;
+    border-radius: 10px;
+    transition: border 0.3s ease;
+    cursor: pointer;
+}
+
+.step2-selected-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 120px;
+    height: 40px;
+    border: 2px solid #25aa3d;
+    border-radius: 10px;
+    transition: border 0.3s ease;
+    cursor: pointer;
+}
+
+.step2-container:hover {
+    border: 2px solid #25aa3d;
+}
+
+.step2-options-text {
+    color: black;
+    font-family: "Poppins";
+    font-size: 18px;
+    font-weight: 400;
+    text-align: center;
 }
