@@ -717,15 +717,15 @@ export default function WarrantyForm({ source, certUrlField, jornayaId, ip }) {
         userAgent: normalizeUserAgent(window?.navigator?.userAgent),
         ip: ip,
       };
-      console.log("Bathroom Form Body:", body);
-      // postData("bathroom", body)
-      //   .then((res) => {
-      //     setIsSubmitting(false);
-      //     if (res.success) {
-      //       navigate("/bathroom-thankyou-page");
-      //     }
-      //   })
-      //   .catch((error) => console.log("bathroom Post API Error", error));
+      // console.log("Bathroom Form Body:", body);
+      postData("bathroom", body)
+        .then((res) => {
+          setIsSubmitting(false);
+          if (res.success) {
+            navigate("/bathroom-thankyou-page");
+          }
+        })
+        .catch((error) => console.log("bathroom Post API Error", error));
     }
   };
   const prevStep = () => {
