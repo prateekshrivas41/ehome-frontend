@@ -98,7 +98,7 @@ const Step1 = ({ selectRoofingPurpose, setSelectRoofingPurpose, autoNext }) => {
                     : "step1-options-text"
                 }
               >
-                {item.text} 
+                {item.text}
               </div>
             </div>
           );
@@ -222,7 +222,7 @@ const Step4 = ({
   newState,
   setNewState,
 }) => {
-   const getCityAndState = (place) => {
+  const getCityAndState = (place) => {
     if (!place?.address_components) return { city: "", state: "" };
 
     let city = "";
@@ -704,14 +704,15 @@ export default function WarrantyForm({ source, certUrlField, jornayaId, ip }) {
   const [newCity, setNewCity] = useState("");
   const [newState, setNewState] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [leadIdLocal, setLeadIdLocal] = useState(jornayaId || "");
   const [captchaVerified, setCaptchaVerified] = useState(false);
   const formRef = useRef(null);
   const prevNextRef = useRef(null);
-  const { 
-    isVerified, 
-    isLoading, 
-    captchaError, 
-    verifyRecaptcha 
+  const {
+    isVerified,
+    isLoading,
+    captchaError,
+    verifyRecaptcha
   } = useRecaptcha();
 
   const autoNext = () => {
@@ -720,13 +721,63 @@ export default function WarrantyForm({ source, certUrlField, jornayaId, ip }) {
     }, 100); // slight delay for UI feedback
   };
 
-const stepLabels = [
-  { label: "Purpose" },
-  { label: "Material" },
-  { label: "Property" },
-  { label: "Contact" },
-  { label: "Verification" },
-];
+  useEffect(() => {
+    if (jornayaId) {
+      setLeadIdLocal(jornayaId);
+      const el = document.getElementById("leadid_token");
+      if (el) el.value = jornayaId;
+    }
+  }, [jornayaId]);
+
+  const regenerateLeadId = (timeout = 5000) => {
+    return new Promise((resolve) => {
+      try {
+        if (window?.LeadiD?.token) {
+          resolve(window.LeadiD.token);
+          return;
+        }
+        const src = `//create.lidstatic.com/campaign/f03643f0-99d1-b06f-a78d-14e98c0dc3e8.js?snippet_version=2&ts=${Date.now()}`;
+        const script = document.createElement("script");
+        script.type = "text/javascript";
+        script.async = true;
+        script.src = src;
+        script.id = `LeadiDscript_campaign_dynamic_${Date.now()}`;
+        document.body.appendChild(script);
+
+        const start = Date.now();
+        const interval = setInterval(() => {
+          if (window?.LeadiD?.token) {
+            clearInterval(interval);
+            resolve(window.LeadiD.token);
+          } else if (Date.now() - start > timeout) {
+            clearInterval(interval);
+            resolve(null);
+          }
+        }, 150);
+      } catch (err) {
+        resolve(null);
+      }
+    });
+  };
+
+  // Retry logic for regenerating lead ID
+  const regenerateLeadIdWithRetries = async (attempts = 3, perAttemptTimeout = 5000) => {
+    for (let i = 0; i < attempts; i++) {
+      const token = await regenerateLeadId(perAttemptTimeout);
+      if (token) return token;
+      // small delay before next attempt
+      await new Promise((r) => setTimeout(r, 250));
+    }
+    return null;
+  };
+
+  const stepLabels = [
+    { label: "Purpose" },
+    { label: "Material" },
+    { label: "Property" },
+    { label: "Contact" },
+    { label: "Verification" },
+  ];
 
   // Step 4: Step2 (homeowner) + Step4 (location)
   const StepPropertyOwnership = (props) => (
@@ -752,36 +803,36 @@ const stepLabels = [
 
 
   // Steps array
-const steps = [
-  <div key="1">
-    <Step1
-      selectRoofingPurpose={selectRoofingPurpose}
-      setSelectRoofingPurpose={setSelectRoofingPurpose}
-      autoNext={currentStep === 0 ? () => { setValidationError(""); autoNext(); } : undefined}
-    />
-  </div>,
-  <div key="2">
-    <Step3
-      materialtype={materialtype}
-      setmaterialtype={setmaterialtype}
-      autoNext={currentStep === 1 ? () => { setValidationError(""); autoNext(); } : undefined}
-    />
-  </div>,
-  <div key="3">
-    <StepPropertyOwnership />
-  </div>,
-  <div key="4">
- 
-     <Step5 userName={userName} setUserName={setUserName} />
-    <Step6 email={email} setEmail={setEmail} />
-  </div>,
-  <div key="5">
-    <>
-      <Step7 phone={phone} setPhone={setPhone} />
-      {/* <CaptchaStep setCaptchaVerified={setCaptchaVerified} captchaVerified={captchaVerified} /> */}
-    </>
-  </div>,
-];
+  const steps = [
+    <div key="1">
+      <Step1
+        selectRoofingPurpose={selectRoofingPurpose}
+        setSelectRoofingPurpose={setSelectRoofingPurpose}
+        autoNext={currentStep === 0 ? () => { setValidationError(""); autoNext(); } : undefined}
+      />
+    </div>,
+    <div key="2">
+      <Step3
+        materialtype={materialtype}
+        setmaterialtype={setmaterialtype}
+        autoNext={currentStep === 1 ? () => { setValidationError(""); autoNext(); } : undefined}
+      />
+    </div>,
+    <div key="3">
+      <StepPropertyOwnership />
+    </div>,
+    <div key="4">
+
+      <Step5 userName={userName} setUserName={setUserName} />
+      <Step6 email={email} setEmail={setEmail} />
+    </div>,
+    <div key="5">
+      <>
+        <Step7 phone={phone} setPhone={setPhone} />
+        {/* <CaptchaStep setCaptchaVerified={setCaptchaVerified} captchaVerified={captchaVerified} /> */}
+      </>
+    </div>,
+  ];
 
   useEffect(() => {
     const fetchCityState = async () => {
@@ -849,68 +900,85 @@ const steps = [
     return verified;
   };
   const nextStep = async () => {
-   if (currentStep === 0) {
-    if (selectRoofingPurpose === "") {
-      setValidationError("Please select roofing purpose!");
-    } else {
-      setValidationError("");
-      setCurrentStep(currentStep + 1);
-    }
-    return;
-  }
-  if (currentStep === 1) {
-    if (materialtype === "") {
-      setValidationError("Please select material type!");
-    } else {
-      setValidationError("");
-      setCurrentStep(currentStep + 1);
-    }
-    return;
-  }
-  if (currentStep === 2) {
-    if (homeowner === "") {
-      setValidationError("Please select home owner!");
-    } else if (stateCity === "") {
-      setValidationError("Please enter state and city!");
-    } else {
-      setValidationError("");
-      setCurrentStep(currentStep + 1);
-    }
-    return;
-  }
-  if (currentStep === 3) {
-    if (!userName.firstName && !userName.lastName) {
-      setValidationError("Please enter both first name and last name!");
-    } else if (!userName.firstName) {
-      setValidationError("Please enter the first name!");
-    } else if (!userName.lastName) {
-      setValidationError("Please enter the last name!");
-    } else if (email === "") {
-      setValidationError("Please enter email!");
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      setValidationError("Please enter a valid email address!");
-    } else {
-      setValidationError("");
-      setCurrentStep(currentStep + 1);
-    }
-    return;
-  }
-  if (currentStep === 4) {
-    if (phone == "") {
-      setValidationError("Please enter a phone number!");
+    if (currentStep === 0) {
+      if (selectRoofingPurpose === "") {
+        setValidationError("Please select roofing purpose!");
+      } else {
+        setValidationError("");
+        setCurrentStep(currentStep + 1);
+      }
       return;
-    } else if (!/^\d{10}$/.test(phone)) {
-      setValidationError("Please enter a valid 10-digit phone number!");
-      return;
-    } 
-    if (!certUrlField || !jornayaId || !ip) {
-      console.warn("Tracking data missing. Skipping submission.", {
-        certUrlField,
-        jornayaId,
-        ip,
-      });
-      return; 
     }
+    if (currentStep === 1) {
+      if (materialtype === "") {
+        setValidationError("Please select material type!");
+      } else {
+        setValidationError("");
+        setCurrentStep(currentStep + 1);
+      }
+      return;
+    }
+    if (currentStep === 2) {
+      if (homeowner === "") {
+        setValidationError("Please select home owner!");
+      } else if (stateCity === "") {
+        setValidationError("Please enter state and city!");
+      } else {
+        setValidationError("");
+        setCurrentStep(currentStep + 1);
+      }
+      return;
+    }
+    if (currentStep === 3) {
+      if (!userName.firstName && !userName.lastName) {
+        setValidationError("Please enter both first name and last name!");
+      } else if (!userName.firstName) {
+        setValidationError("Please enter the first name!");
+      } else if (!userName.lastName) {
+        setValidationError("Please enter the last name!");
+      } else if (email === "") {
+        setValidationError("Please enter email!");
+      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        setValidationError("Please enter a valid email address!");
+      } else {
+        setValidationError("");
+        setCurrentStep(currentStep + 1);
+      }
+      return;
+    }
+    if (currentStep === 4) {
+      if (phone == "") {
+        setValidationError("Please enter a phone number!");
+        return;
+      } else if (!/^\d{10}$/.test(phone)) {
+        setValidationError("Please enter a valid 10-digit phone number!");
+        return;
+      }
+      let certURL = document.querySelector('[name="xxTrustedFormCertUrl"]')?.value;
+      if (!certUrlField && !certURL ) {
+        console.warn("Tracking data missing. Skipping submission.", {
+          certUrlField,
+          ip,
+        });
+        return;
+      }
+      let finalLeadId = jornayaId || leadIdLocal || document.getElementById("leadid_token")?.value || null;
+      if (!finalLeadId) {
+        const newToken = await regenerateLeadIdWithRetries(3, 5000);
+        if (newToken) {
+          finalLeadId = newToken;
+          setLeadIdLocal(newToken);
+          const el = document.getElementById("leadid_token");
+          if (el) el.value = newToken;
+        }
+      }
+
+      if (!finalLeadId) {
+        setValidationError("Cannot Submit form, Please Try again later");
+        setIsSubmitting(false);
+        return;
+      }
+
       const isHuman = await handleVerify(); 
       if (!isHuman) {
         setValidationError(captchaError);
@@ -934,15 +1002,15 @@ const steps = [
         lastName: userName?.lastName,
         email: email,
         phoneNumber: phone,
-        trustedFormUrl: certUrlField,
-        jornayaLeadId: jornayaId,
+        trustedFormUrl: certUrlField ?? certURL,
+        jornayaLeadId: finalLeadId,
         state: newState,
         city: newCity,
         source: source?.publisherId,
         click_id: source?.clickId,
         userAgent: normalizeUserAgent(window?.navigator?.userAgent),
         sessionTime: "30",
-        trustedFormCertId: certUrlField?.split('/')[3],
+        trustedFormCertId: certUrlField ? certUrlField?.split('/')[3]:  certURL?.split('/')[3] ,
         ip: ip,
       };
 
@@ -993,9 +1061,11 @@ const steps = [
 
   return (
     <MainFormView>
-       {/* <ValidationProvider> */}
+      {/* <ValidationProvider> */}
       <div className="roofing-main-container">
-        <div className="roofing-form-container" ref={formRef}> 
+        <div className="roofing-form-container" ref={formRef}>
+          {/* Hidden field for LeadID/Jornaya token*/}
+          <input id="leadid_token" name="universal_leadid" type="hidden" value={leadIdLocal} />
           {/* Tabs on top, horizontal */}
           <div style={{width:"100%"}}>
             <FormTabs
@@ -1098,10 +1168,10 @@ const steps = [
           <PrevNextButtom
             ref={prevNextRef}
             nextText={
-              isLoading 
-                ? "Verifying..." 
-                : currentStep === steps.length - 1 
-                  ? "Submit" 
+              isLoading
+                ? "Verifying..."
+                : currentStep === steps.length - 1
+                  ? "Submit"
                   : "Next"
             }
             prevClick={prevStep}

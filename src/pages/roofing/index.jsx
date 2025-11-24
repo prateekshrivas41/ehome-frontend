@@ -216,10 +216,26 @@ export default function Windows() {
   )?.value;
   const jornayaId = window?.LeadiD?.token
 
-  const getData = async () => {
+const getData = async (count = 0) => {
+  try {
     const res = await axios.get("https://api.ipify.org/?format=json");
-    setIP(res.data.ip);
-  };
+    if (res.data.ip) {
+      setIP(res.data.ip); 
+    } else if (count < 3) {
+      getData(count + 1);
+    } else {
+      console.error("Failed to fetch IP after 3 attempts");
+    }
+  } catch (error) {
+    if (count < 3) {
+      console.log(`Attempt ${count + 1} failed. Retrying...`);
+      getData(count + 1); 
+    } else {
+      console.error("Failed to fetch IP after 3 attempts", error);
+    }
+  }
+};
+
 
   useEffect(() => {
     getData();
