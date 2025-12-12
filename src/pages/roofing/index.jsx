@@ -201,8 +201,9 @@ export default function Windows() {
   }
     
     getMyLocation(function (callback) {
-      setLocation(callback);
-      let { city, state } = callback;
+      const safeLocation = callback || { city: "", state: "", country: "" };
+      setLocation(safeLocation);
+      let { city, state } = safeLocation;
       let body = { city: city, state: state };
       setLocalData("currentLocation", body);
     });
@@ -248,6 +249,7 @@ const getData = async (count = 0) => {
         subHeading="Roofing Contractor"
         city={location.city}
         state={location.state}
+        contact={"+1 773 915 6090"}
         setOpen={setOpen}
       />
       <Benefits data={benefitsData} imageSrc={roofing_benefits} />

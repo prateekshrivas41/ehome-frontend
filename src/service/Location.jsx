@@ -1,7 +1,8 @@
 import axios from "axios";
+import { GOOGLE_MAPS_API_KEY } from "../constants/GoogleMaps";
 
 const getCityStateCountry = async (lat, long) => {
-    const API_KEY = 'AIzaSyCpe8T2-LTEaHWGZlPa0-uxoVUcQTQzltY';
+    const API_KEY = GOOGLE_MAPS_API_KEY;
     const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${long}&key=${API_KEY}`;
     try {
         const response = await axios.get(url);
@@ -30,15 +31,29 @@ const getCityStateCountry = async (lat, long) => {
 };
 
 function getMyLocation(callback) {
-    const location = window.navigator && window.navigator.geolocation
+    const location = window.navigator && window.navigator.geolocation;
+    const safeCallback = (data) => callback?.(data || { city: "", state: "", country: "" });
+
     if (location) {
-        location.getCurrentPosition((position) => {
-            getCityStateCountry(position.coords.latitude, position.coords.longitude).then(res => {
-                callback(res)
-            })
-        }, (error) => {
-            console.log("Error >>> location::::", error)
-        })
+        location.getCurrentPosition(
+            (position) => {
+                getCityStateCountry(position.coords.latitude, position.coords.longitude)
+                    .then((res) => {
+                        safeCallback(res);
+                    })
+                    .catch((error) => {
+                        console.error("Error fetching city/state:", error);
+                        safeCallback();
+                    });
+            },
+            (error) => {
+                console.log("Error >>> location::::", error);
+                safeCallback();
+            }
+        );
+    } else {
+        // Geolocation unavailable; provide empty defaults so consumers don't break
+        safeCallback();
     }
 }
 

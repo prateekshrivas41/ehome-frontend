@@ -214,6 +214,7 @@ export default function Bathroom() {
       <HeroSection
         heading="bathroom"
         subHeading="Bathroom Contractor"
+        contact={"+1 607 600 4573"}
         city={location.city}
         state={location.state}
         country={location.country}

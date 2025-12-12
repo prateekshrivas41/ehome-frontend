@@ -21,7 +21,17 @@
       type="text/css"
       href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
     />
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpe8T2-LTEaHWGZlPa0-uxoVUcQTQzltY&libraries=places"></script>
+    <!-- Google Maps API will be loaded dynamically via googleMapsLoader.js -->
+    <!-- API Key is centralized in src/constants/GoogleMaps.jsx -->
+    <script>
+      // Fallback initialization function (will be overridden by googleMapsLoader if needed)
+      window.initGoogleMaps = function() {
+        window.googleMapsLoaded = true;
+        if (window.onGoogleMapsLoaded) {
+          window.onGoogleMapsLoaded();
+        }
+      };
+    </script>
     <script id="trackier-sdk" src="https://static-cdn.trackier.com/js/trackier-web-sdk.js" async></script>
     <title>Ehome</title>
 

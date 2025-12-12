@@ -28,6 +28,7 @@ import FormTabs from "../../components/FromTabs/FormTabs";
 import { CircularProgress } from "@mui/material";
 
 import { useValidation } from "../../context/validationContext";
+import { GOOGLE_MAPS_API_KEY } from "../../constants/GoogleMaps";
 
 const Step1 = ({
   selectelecticitybill,
@@ -226,7 +227,7 @@ const Step4 = ({
       <div className="step1-heading">Where will this project take place?</div>
       <div className="step4-options-container">
         <Autocomplete
-          apiKey={"AIzaSyCpe8T2-LTEaHWGZlPa0-uxoVUcQTQzltY"}
+          apiKey={GOOGLE_MAPS_API_KEY}
           onPlaceSelected={(place) => {
             setStateCity(place?.formatted_address);
           }}

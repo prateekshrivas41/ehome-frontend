@@ -11,7 +11,7 @@ import { colors } from "../../constants/Colors";
 import { useNavigate } from "react-router-dom";
 import { setLocalData } from "../../service/LocalData";
 
-const HeroSection = ({ city, state, country, heading, subHeading ,setOpen ,backImg}) => {
+const HeroSection = ({ city, state, country, heading, subHeading ,setOpen ,backImg, contact}) => {
   const [zipCode, setzipCode] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate()
@@ -44,7 +44,7 @@ const HeroSection = ({ city, state, country, heading, subHeading ,setOpen ,backI
                 heading === 'homeWarranty' ? "homeWarrantySection" : 
                 heading === 'Flooring' ? "flooringSection" : 
         "homeSection"}>
-        <Header />
+        <Header contact={contact} />
         <div className="hero-content">
           <div id="content">
             <h2 id="main-h">

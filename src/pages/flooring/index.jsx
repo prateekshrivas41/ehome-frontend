@@ -241,6 +241,7 @@ export default function Windows() {
       <HeroSection
         heading="Flooring"
         subHeading="Flooring Contractor"
+        contact={"+1 614 739 0027"}
         city={location.city}
         state={location.state}
         setOpen={setOpen}

@@ -231,6 +231,7 @@ export default function Windows() {
       <HeroSection
         heading="window"
         subHeading="Window Contractor"
+        contact={"+1 619 960 8283"}
         city={location.city}
         state={location.state}
         setOpen={setOpen}

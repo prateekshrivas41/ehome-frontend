@@ -17,6 +17,7 @@ import { CircularProgress } from "@mui/material";
 
 import { useValidation } from "../../context/validationContext";
 import useRecaptcha from "../../hooks/useRecaptcha";
+import { GOOGLE_MAPS_API_KEY } from "../../constants/GoogleMaps";
 
 const ownerData = [
     { id: 1, text: 'Yes', value: true },
@@ -59,7 +60,7 @@ const Step1 = ({
       <div className="step4-options-container">
         <Autocomplete
           key={stateCity} // Add key to reset component on selection
-          apiKey={"AIzaSyCpe8T2-LTEaHWGZlPa0-uxoVUcQTQzltY"}
+          apiKey={GOOGLE_MAPS_API_KEY}
           defaultValue={stateCity}
           onPlaceSelected={(place) => {
             setStateCity(place?.formatted_address);

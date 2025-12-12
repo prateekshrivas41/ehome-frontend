@@ -20,6 +20,8 @@ import animategif from "../../assets/pic.jpg";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import TextCaptcha from "./captcharoofing/TextCaptcha";
 import useRecaptcha from "../../hooks/useRecaptcha";
+import { GOOGLE_MAPS_API_KEY } from "../../constants/GoogleMaps";
+import { loadGoogleMapsScript } from "../../utils/googleMapsLoader";
 
 // const CaptchaStep = ({ setCaptchaVerified, captchaVerified }) => {
 //   const { 
@@ -222,6 +224,68 @@ const Step4 = ({
   newState,
   setNewState,
 }) => {
+  const [mapsLoaded, setMapsLoaded] = useState(false);
+  const [mapsError, setMapsError] = useState(false);
+
+  useEffect(() => {
+    // Ensure the Maps script is requested for this page as soon as Step4 mounts
+    loadGoogleMapsScript()
+      .then(() => setMapsLoaded(true))
+      .catch((err) => {
+        console.error("Google Maps failed to load via loader:", err);
+        setMapsError(true);
+      });
+
+    let checkInterval;
+    let timeout;
+    let isMounted = true;
+
+    // Check if Google Maps is already loaded
+    if (window.google && window.google.maps && window.google.maps.places) {
+      setMapsLoaded(true);
+      return;
+    }
+
+    // If not loaded, wait for the callback
+    if (window.googleMapsLoaded) {
+      setMapsLoaded(true);
+      return;
+    }
+
+    // Set up callback listener
+    window.onGoogleMapsLoaded = () => {
+      if (isMounted) {
+        setMapsLoaded(true);
+      }
+    };
+
+    // Fallback: check periodically (in case callback doesn't fire)
+    checkInterval = setInterval(() => {
+      if (window.google && window.google.maps && window.google.maps.places) {
+        if (isMounted) {
+          setMapsLoaded(true);
+        }
+        clearInterval(checkInterval);
+      }
+    }, 100);
+
+    // Timeout after 10 seconds
+    timeout = setTimeout(() => {
+      clearInterval(checkInterval);
+      if (isMounted && !window.google?.maps?.places) {
+        setMapsError(true);
+        console.error("Google Maps failed to load");
+      }
+    }, 10000);
+
+    return () => {
+      isMounted = false;
+      if (checkInterval) clearInterval(checkInterval);
+      if (timeout) clearTimeout(timeout);
+      window.onGoogleMapsLoaded = null;
+    };
+  }, []);
+
   const getCityAndState = (place) => {
     if (!place?.address_components) return { city: "", state: "" };
 
@@ -249,24 +313,69 @@ const Step4 = ({
     <div>
       <div className="step1-heading">Where will this project take place?</div>
       <div className="step4-options-container">
-        <Autocomplete
-          key={stateCity} // Add key to reset component on selection
-          apiKey={"AIzaSyCpe8T2-LTEaHWGZlPa0-uxoVUcQTQzltY"}
-          defaultValue={stateCity}
-          onPlaceSelected={(place) => {
-            setStateCity(place?.formatted_address);
-            const { city, state } = getCityAndState(place);
-            setNewCity(city);
-            setNewState(state);
-          }}
-          // onChange={(getdata) => {}}
-          options={{
-            types: ["geocode"],
-            componentRestrictions: { country: "us" },
-          }}
-          placeholder="Enter an address"
-          className="autoComplete-style"
-        />
+        {mapsError ? (
+          <TextField
+            placeholder="Enter an address manually"
+            value={stateCity || ""}
+            onChange={(e) => setStateCity(e.target.value)}
+            margin="dense"
+            variant="outlined"
+            size="small"
+            style={{ width: "100%" }}
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                color: "#000",
+                fontFamily: "Poppins",
+                fontSize: 14,
+                "& .MuiOutlinedInput-notchedOutline": {
+                  borderColor: "#CCCCCC",
+                  borderWidth: "1px",
+                  borderRadius: 3,
+                },
+              },
+            }}
+          />
+        ) : mapsLoaded ? (
+          <Autocomplete
+            key={stateCity} // Add key to reset component on selection
+            apiKey={GOOGLE_MAPS_API_KEY}
+            defaultValue={stateCity}
+            onPlaceSelected={(place) => {
+              setStateCity(place?.formatted_address);
+              const { city, state } = getCityAndState(place);
+              setNewCity(city);
+              setNewState(state);
+            }}
+            // onChange={(getdata) => {}}
+            options={{
+              types: ["geocode"],
+              componentRestrictions: { country: "us" },
+            }}
+            placeholder="Enter an address"
+            className="autoComplete-style"
+          />
+        ) : (
+          <TextField
+            placeholder="Loading address autocomplete..."
+            disabled
+            margin="dense"
+            variant="outlined"
+            size="small"
+            style={{ width: "100%" }}
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                color: "#000",
+                fontFamily: "Poppins",
+                fontSize: 14,
+                "& .MuiOutlinedInput-notchedOutline": {
+                  borderColor: "#CCCCCC",
+                  borderWidth: "1px",
+                  borderRadius: 3,
+                },
+              },
+            }}
+          />
+        )}
         <div style={{ display: "flex", flexDirection: "row" }}>
           <Checkbox
             {...label}
