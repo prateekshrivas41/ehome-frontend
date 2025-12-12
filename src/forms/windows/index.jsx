@@ -794,7 +794,7 @@ export default function WarrantyForm({ source, certUrlField, jornayaId, ip }) {
     }
   };
   return (
-    <MainFormView>
+    <MainFormView contact={"+1 619 960 8283"}>
        <div className="main-container">
       <div className="form-value-container" ref={formRef}>
         {/* Form Tabs */}

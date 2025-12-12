@@ -736,10 +736,10 @@ export default function WarrantyForm({ source, certUrlField, jornayaId, ip }) {
     }
   };
   return (
-    <MainFormView>
+    <MainFormView contact={"+1 607 600 4573"}>
       {/* <ValidationProvider> */}
       <div className="main-container">
-      <div className="form-value-container" ref={formRef}>      
+      <div className="form-value-container" ref={formRef}>
           <div style={{width:"100%"}}>
           <FormTabs
             steps={stepLabels}

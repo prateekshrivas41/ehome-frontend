@@ -1,11 +1,11 @@
 import React, { Fragment } from "react"
 import { Header } from "../components/header"
 import "./formView.css"
-export default function MainFormView({ children }) {
+export default function MainFormView({ contact, children }) {
     return (
         <Fragment>
             <div className="form-conatiner" >
-                <Header />
+                <Header contact={contact}/>
                 {children}
             </div>
         </Fragment>
