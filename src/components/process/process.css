@@ -1,0 +1,168 @@
+.Process {
+  background-color: #f5f5fc;
+  padding-bottom: 30px;
+  margin-bottom: 0px;
+}
+
+.Process,
+.iconAndText {
+  display: flex;
+  overflow: hidden;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem;
+}
+
+.main-img {
+  object-fit: cover;
+  width: 100%;
+border-radius: 10px;
+
+}
+
+.Process-img-heading-div {
+  width: 100%;
+  gap: 10px;
+
+  display: flex;
+  justify-content: center;
+}
+/* Container for Heading and Subheading */
+.Process-Heading-Container {
+  display: grid;
+  /* align-items: flex-start;
+  justify-content: flex-start;
+  width: 100%; */
+  gap: 1rem;
+}
+
+/* Heading Styling */
+.Process-Heading {
+  color: #5352c9;
+  font-size: 20px;
+  margin-top: 10px;
+  margin-bottom: 5px; /* Small space below heading */
+  line-height: 1.4;
+  display: block;
+  width: 100%;
+  text-align: left;
+}
+
+/* Subheading Styling */
+.Process-Subheading {
+  font-size: small;
+  text-align: center;
+  /* width: 80%; */
+  margin-top: 0; /* No margin-top here to ensure consistent alignment */
+  line-height: 1.5;
+  /* display: block; */
+}
+
+/* Other Styling */
+.HTW {
+  font-size: 28px;
+  font-family: "Poppins";
+  margin-top: 30px;
+  font-weight: 500;
+}
+
+.HTW-subheading {
+  font-size: 15px;
+  font-family: "Poppins";
+  margin-bottom: 30px;
+  font-weight: 400;
+  text-align: center;
+}
+
+.Content-Manager {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 95%;
+}
+
+
+
+.Process-img-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Process-text-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.Process-Heading {
+  margin: 0; /* Remove default margin */
+  /* text-align: center; */
+}
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+.Process-Heading{
+font-size: 16px;
+}
+}
+
+
+
+@media (max-width: 768px) {
+  .Content-Manager {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media (max-width: 500px){
+  .iconAndText {
+  width: 80%;
+  padding: 0;
+}
+.main-img {
+  width: 280px;
+  height: 160px;
+  border-radius: 20px;
+}
+.Process-Heading-Container{
+  padding: 0;
+}
+}
+@media (max-width: 420px) {
+  .Process-Heading {
+    font-size: 15px;
+  }
+  .Content-Manager {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+  /* .iconAndText {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  } */
+  .Process-Subheading {
+    font-size: small;
+    text-align: left;
+    width: 100%;
+    margin-bottom: 30px;
+  }
+  .iconAndText img {
+    width: auto;
+  }
+  
+
+  /* .HTW-subheading {
+    font-size: 10px;
+  } */
+}
+

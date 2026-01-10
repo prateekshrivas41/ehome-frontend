@@ -1,0 +1,113 @@
+/* Container */
+.form-tabs-horizontal {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  position: relative;
+  background: rgba(249, 216, 216, 0.1);     
+  /* backdrop-filter: blur(16px); */
+  /* -webkit-backdrop-filter: blur(16px);           */
+  border: 1px solid rgba(0, 0, 0, 0.08);    
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  padding: 0.5rem;
+  margin: 0;
+  gap: 0.5rem;
+  border-radius: 12px 12px 0 0;
+  z-index: 1;
+}
+
+/* Tab Buttons */
+.form-tab {
+  background: rgb(251, 251, 251);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  outline: none;
+  padding: 1rem 2rem;
+  font-size: 0.8rem;
+  color: #1a1a1a;
+  cursor: pointer;
+  white-space: nowrap;
+  position: relative;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+#home-btn{
+padding: 1rem;
+font: bolder;
+
+}
+/* Hover Effect */
+.form-tab:hover:not(:disabled) {
+  color: #111111;
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+/* Active Tab */
+.form-tab.active {
+  color: 	#141414;
+  font-weight: 600;
+  border-bottom: 2px solid #5352C9;
+  /* border: 1px solid rgba(0, 0, 0, 0.15); */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+/* .form-tab.active::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 3px;
+  background: linear-gradient(90deg, #5352C9, #6C5DD3);
+  border-radius: 3px;
+  transition: width 0.3s ease, background 0.3s ease;
+} */
+
+/* Disabled Tab */
+.form-tab:disabled {
+  color: #666666;
+  background: rgba(255, 255, 255, 0.05);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Disabled Hover */
+.form-tab:disabled:hover {
+  color: #666666;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Icons */
+.tab-icon {
+  font-size: 1.2em;
+  display: inline-flex;
+  align-items: center;
+  color: inherit;
+}
+
+/* Responsive Centering */
+@media (max-width: 769px) {
+  .form-tabs-horizontal {
+    gap: 0.3rem;
+  }
+  #home-btn{
+    padding: 0.5rem;
+    }
+  .form-tab {
+    padding: 0.5rem;
+    font-size: 0.6rem;
+  }
+  .form-tab.active{
+    font-size: 0.5rem;
+    
+  }
+}

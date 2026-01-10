@@ -1,0 +1,217 @@
+.mainContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-self: center;
+    align-items: center;
+    padding-bottom: 30px;
+    margin-top: 30px;
+}
+
+.heading {
+    font-size: 1.7rem;
+    color: black;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    column-gap: 8px;
+    font-weight: 500;
+    font-family: 'poppins';
+    margin: 50px 0 15px 0;
+}
+
+.windowText {
+    font-size: 1.7rem;
+    color: #15BB70;
+    font-weight: 500;
+    font-family: 'poppins';
+}
+
+.nearyou-container{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #000000;
+    margin: 10px;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: #FFFFFF;
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px 10px 0px rgba(0, 0, 0, 0.1);
+    position: relative;
+    margin-top: 6%;
+    width: 80%;
+    align-self: center;
+}
+
+.title {
+    color: black;
+    font-size: 20px;
+    font-family: 'poppins';
+    font-weight: 500;
+    margin-left: 14%;
+    text-align: left;
+}
+
+.sub-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.star-rating {
+    display: flex;
+    margin-left: 14%;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.rating {
+    color: #FCD010;
+    font-size: small;
+    font-family: 'poppins';
+    margin-top: 4px;
+}
+
+.description {
+    color: black;
+    font-size: 14px;
+    font-family: 'poppins';
+    width: 75%;
+    padding-bottom: 30px;
+    text-align: left;
+}
+
+.questions {
+    display: flex;
+    flex-direction: column;
+}
+
+.nearyou-logo-container {
+    display: flex;
+    width: 120px;
+    height: 120px;
+    border-radius: 60px;
+    position: absolute;
+    bottom: 100px;
+    background-color: #FFFFFF;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ccc;
+    box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 500px) {
+    .heading {
+        font-size: 20px;
+        color: black;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        column-gap: 8px;
+        font-weight: 500;
+        font-family: 'poppins';
+        margin: 50px 0px 20px 0px;
+    }
+
+    .windowText {
+        font-size: 1.7rem;
+        color: #15BB70;
+        font-weight: 500;
+        font-family: 'poppins';
+        margin-bottom: 20px;
+        margin-top: 20px;
+    }
+
+    .nearyou-container{
+        display: flex;
+        max-width: 90%;
+        align-self: center;
+        flex-direction: column;
+        border: 1px solid #000000;
+        margin: 10px;
+        padding: 10px;
+        border-radius: 10px;
+        background-color: #FFFFFF;
+        border: 1px solid #ccc;
+        box-shadow: 1px 1px 10px 0px rgba(0, 0, 0, 0.1);
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+
+    .title {
+        color: black;
+        font-size: 20px;
+        font-family: 'poppins';
+        font-weight: 500;
+        margin-left: 2%;
+    }
+
+    .star-rating {
+        display: flex;
+        margin-left: 2%;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        margin-bottom: 4px;
+    }
+
+
+    .description {
+        color: black;
+        font-size: 14px;
+        font-family: 'poppins';
+        width: 100%;
+        padding-bottom: 30px;
+    }
+
+    .sub-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .nearyou-logo-container {
+        display: flex;
+        flex-direction: row;
+        position: static;
+        width: 120px;
+        height: 120px;
+        align-self: center;
+        margin-bottom: 20px;
+        border-radius: 60px;
+        background-color: #FFFFFF;
+        overflow: hidden;
+        align-items: center;
+        justify-content: center;
+        border: 0px solid #ccc;
+        box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.1);
+    }
+}
+
+
+
+@media (max-width: 400px) {
+    .heading{
+        font-size:18px !important ;
+    }
+}
+
+@media (max-width: 500px) {
+    .mainContainer{
+       display: none !important;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .nearyou-logo-container{
+       height: 80px;
+       width: 80px;
+       bottom: 130px;
+    }
+
+  }
